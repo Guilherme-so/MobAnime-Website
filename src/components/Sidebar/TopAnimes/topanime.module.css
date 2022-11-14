@@ -1,0 +1,39 @@
+.container {
+    padding: 16px;
+    background-color: #0F0F0F;
+    margin-bottom: 24px;
+}
+
+.container > div {
+    margin: 4px 0 0 4px;
+}
+
+.container div > h1 {
+    font-weight: bold;
+    color: #5B21B6;
+    font-size: 1.5rem;
+    line-height: 2rem;
+}
+
+.animeItem {
+    cursor: pointer;
+    display: flex;
+    gap: 12px;
+    margin: 0 20px;
+    padding: 4px;
+}
+
+.animeItem:hover {
+    border: 4px solid #3730A3;
+}
+
+
+.animeItem div:nth-child(1){
+    max-width: 80px;
+    width: 100%;
+}
+
+.animeItem div:nth-child(2) > h1 {
+    color: gray;
+    font-size:small;
+}

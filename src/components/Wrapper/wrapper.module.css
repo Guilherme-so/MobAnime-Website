@@ -13,5 +13,6 @@
     width: 97%;
     display: flex;
     margin: auto;
+    justify-content: space-between;
     border-top: 1px solid #9CA3AF;
 }

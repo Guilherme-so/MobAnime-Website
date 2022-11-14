@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-// import { Sidebar } from "../Sidebar";
+import { Sidebar } from "../Sidebar";
 
 import style from "./wrapper.module.css"
 
@@ -13,7 +13,7 @@ export const Wrapper = ({ children }: WrapperProps) => {
     <div className={style.container}>
       <main className={style.main}>
         {children}
-        {/* <Sidebar /> */}
+        <Sidebar />
       </main>
     </div>
   );
