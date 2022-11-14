@@ -5,6 +5,7 @@
     flex-direction: column;
     background-repeat: repeat;
     background: url("/images/background.jpg");
+    padding-bottom: 30px;
 }
 
 
