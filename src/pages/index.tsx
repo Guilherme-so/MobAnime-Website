@@ -1,71 +1,60 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Link from "next/link";
+import Image from "next/image";
+import { gql, useQuery } from "@apollo/client";
+import style from "../styles/Home.module.css";
+
+const QUERY_ALL_ANIMES = gql`
+  {
+    animes {
+      id
+      title
+      slug
+      description
+      thumbnail {
+        id
+        fileName
+        url
+      }
+      epsodios {
+        id
+        title
+        slug
+        ep
+      }
+    }
+  }
+`;
 
 export default function Home() {
+  const { data, loading } = useQuery(QUERY_ALL_ANIMES);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>MobAnime | Home</title>
-        <meta name="description" content="Um site para assistir animes" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div className={style.container}>
+      <h1>Todos Animes</h1>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
+      <div className={style.animes}>
+        {data?.animes.map((anime: any) => {
+          return (
+            <div key={anime.id} className={style.animeItem}>
+              <Link href={`/watch/${anime.slug}`} key={anime.id}>
+                <div className={style.image}>
+                  <Image
+                    src={anime.thumbnail.url}
+                    alt={anime.title}
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                </div>
+                <h1>{anime.title}</h1>
+              </Link>
+            </div>
+          );
+        })}
+      </div>
     </div>
-  )
+  );
 }

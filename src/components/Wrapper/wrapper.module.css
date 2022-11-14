@@ -5,7 +5,6 @@
     flex-direction: column;
     background-repeat: repeat;
     background: url("/images/background.jpg");
-    padding-bottom: 64px;
 }
 
 
@@ -13,6 +12,7 @@
     width: 97%;
     display: flex;
     margin: auto;
+    background-color: #000;
     justify-content: space-between;
     border-top: 1px solid #9CA3AF;
 }
