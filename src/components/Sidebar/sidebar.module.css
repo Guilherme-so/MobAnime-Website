@@ -1,4 +1,18 @@
 .sidebar {
-    width: 320px;
-    background-color: #000;
+  width: 320px;
+  background-color: #000;
+  position: relative;
+}
+
+@media screen and (max-width: 600px) {
+  .sidebar {
+    display: none;
+  }
+
+  .active {
+    display: flex;
+    z-index: 10;
+    position: absolute;
+    right: 0;
+  }
 }

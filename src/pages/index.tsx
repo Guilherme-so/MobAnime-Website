@@ -4,6 +4,7 @@ import Head from "next/head";
 import { gql, useQuery } from "@apollo/client";
 import { MoonLoader } from "react-spinners";
 import style from "../styles/Home.module.css";
+import { useEffect, useState } from "react";
 
 const QUERY_ALL_ANIMES = gql`
   {
@@ -28,13 +29,28 @@ const QUERY_ALL_ANIMES = gql`
 `;
 
 export default function Home() {
-  const { data, loading } = useQuery(QUERY_ALL_ANIMES);
+  const { data, loading, error } = useQuery(QUERY_ALL_ANIMES);
+  const [animes, setAnimes] = useState([]);
+  // console.log("animes : ", animes);
+
+  useEffect(() => {
+    setAnimes(data?.animes);
+  }, [data]);
 
   if (loading) {
     return (
       <div className={style.loading}>
         <MoonLoader color="#5b21b6" />
       </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <p>
+        Opss... Algo de errado não ta certo, <br />
+        Tente Novamente.
+      </p>
     );
   }
 
@@ -48,7 +64,7 @@ export default function Home() {
         <h1>Todos Animes</h1>
 
         <div className={style.animes}>
-          {data?.animes?.map((anime: any) => {
+          {animes?.map((anime: any) => {
             return (
               <div key={anime.id} className={style.animeItem}>
                 <Link href={`/watch/${anime.slug}`} key={anime.id}>

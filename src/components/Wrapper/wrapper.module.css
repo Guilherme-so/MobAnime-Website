@@ -16,4 +16,13 @@
     background-color: #000;
     justify-content: space-between;
     border-top: 1px solid #9CA3AF;
+    position: relative;
+}
+
+
+@media screen and (max-width: 600px) {
+    .main {
+        width: 100%;
+        margin: 0;
+    }
 }

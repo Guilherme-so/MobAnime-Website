@@ -5,6 +5,7 @@
   flex-wrap: wrap;
   background-color: #000;
   padding: 0 0px 60px  24px;
+  overflow: hidden;
 }
 
 .container h1 {
@@ -17,8 +18,7 @@
 
 .animes {
   display: flex;
-  /* flex: 1; */
-  /* gap: 12px; */
+  justify-content: center;
   flex-wrap: wrap;
 }
 
@@ -41,6 +41,9 @@
   position: relative;
 }
 
+.image > img {
+  border-radius: 5px;
+}
 
 .animeItem h1 {
   word-wrap: break-word;
@@ -60,4 +63,21 @@
   margin: auto;
   justify-content: center;
   align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    padding: 10px;
+
+  }
+
+  .animes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    justify-content: center;
+  }
+  .animeItem {
+    margin: 0;
+  }
 }
