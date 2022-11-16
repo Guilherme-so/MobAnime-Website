@@ -4,7 +4,7 @@ export const Footer = () => {
   return (
     <footer className={style.footer}>
       <h2>
-        &#169; Guilherme Silva 2022
+        &#169; Guilherme Silva
       </h2>
     </footer>
   )

@@ -105,7 +105,9 @@ export const Navbar = () => {
         )}
 
         <div className={style.buttonsWrapper}>
-          <button onClick={() => setSearchVisibility(!searchVisibility)}>
+          <button 
+            className={style.toogleSidebar}
+          onClick={() => setSearchVisibility(!searchVisibility)}>
             <MagnifyingGlass color="#4C1D95" size={28} />
           </button>
 
