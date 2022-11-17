@@ -2,10 +2,10 @@ import React, { FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { searchState, toogleSidebar } from "../../recoil-global/atom";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { searchFind, searchState, toogleSidebar } from "../../recoil-global/atom";
 import { useQuery } from "@apollo/client";
-import { List, MagnifyingGlass, X } from "phosphor-react";
-import { useRecoilState } from "recoil";
+import { List, MagnifyingGlass, MagnifyingGlassMinus, X } from "phosphor-react";
 import { QUERY_ALL_ANIMES } from "../../graphql/queries";
 
 import style from "./navbar.module.css";
@@ -14,6 +14,9 @@ export const Navbar = () => {
   const router = useRouter();
   const [sidebarToogler, setSidebarToogler] = useRecoilState(toogleSidebar);
   const [searchVisibility, setSearchVisibility] = useRecoilState(searchState);
+  const setFindAnime = useSetRecoilState(searchFind)
+  const setAnimeSerchFind = useSetRecoilState<any>(searchFind);
+
   const { data } = useQuery(QUERY_ALL_ANIMES);
   const [allAnimes, setAllAnimes] = useState<any>([]);
   const [animesFiltered, setAnimesFiltered] = useState<any>([]);
@@ -25,6 +28,7 @@ export const Navbar = () => {
     const regex = new RegExp(search, "i");
     return regex.test(name);
   }
+
   useEffect(() => {
     const novaListaDeAnime = allAnimes.filter((item: any) =>
       testaBusca(item.title)
@@ -39,19 +43,27 @@ export const Navbar = () => {
     }
   }, [data]);
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-  };
-
   function handleRedirect(url: string) {
     router.push(`/watch/${url}`);
     setSearch("");
   }
 
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const findAnime = allAnimes.filter((item: any) =>
+    testaBusca(item.title))
+    setFindAnime(findAnime)
+    setSearchVisibility(false)
+    setSearch("")
+  };
+
+
+
   return (
     <div className={style.navbar}>
       <div className={style.navbarWrapper}>
-        <Link href="/">
+        <Link href="/" onClick={()=> setAnimeSerchFind(undefined)}>
           <h1>MobAnime</h1>
         </Link>
 
@@ -64,9 +76,9 @@ export const Navbar = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
 
-          {/* <button className={style.button}>
+          <button className={style.button}>
             <MagnifyingGlass size={28} />
-          </button> */}
+          </button>
         </form>
 
         {search && animesFiltered && (
@@ -95,7 +107,12 @@ export const Navbar = () => {
           <button 
             className={style.toogleSidebar}
           onClick={() => setSearchVisibility(!searchVisibility)}>
-            <MagnifyingGlass color="#4C1D95" size={28} />
+            {searchVisibility ? (
+              <MagnifyingGlassMinus color="#4C1D95" size={28} />
+            ) : (
+              <MagnifyingGlass color="#4C1D95" size={28} />
+            )}
+
           </button>
 
           <button
@@ -120,10 +137,10 @@ export const Navbar = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          {/* 
+          
           <button className={style.button}>
             <MagnifyingGlass size={28} />
-          </button> */}
+          </button>
         </form>
       )}
 

@@ -9,3 +9,8 @@ export const searchState = atom({
     key: 'search',
     default: false
 })
+
+export const searchFind = atom({
+  key: "findSearch",
+  default: undefined  
+})
