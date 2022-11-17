@@ -1,37 +1,17 @@
+import Head from "next/head";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Head from "next/head";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { MoonLoader } from "react-spinners";
-import style from "../styles/Home.module.css";
-import { useEffect, useState } from "react";
+import { QUERY_ALL_ANIMES } from "../graphql/queries";
 
-const QUERY_ALL_ANIMES = gql`
-  {
-    animes {
-      id
-      title
-      slug
-      description
-      thumbnail {
-        id
-        fileName
-        url
-      }
-      epsodios {
-        id
-        title
-        slug
-        ep
-      }
-    }
-  }
-`;
+import style from "../styles/Home.module.css";
+
 
 export default function Home() {
   const { data, loading, error } = useQuery(QUERY_ALL_ANIMES);
   const [animes, setAnimes] = useState([]);
-  // console.log("animes : ", animes);
 
   useEffect(() => {
     setAnimes(data?.animes);

@@ -1,6 +1,5 @@
 .container {
   flex: 1;
-  /* max-width: 1400px; */
   width: 100%;
   flex-wrap: wrap;
   background-color: #000;
@@ -28,22 +27,34 @@
   width: 100%;
   height: 100%;
   margin: 0 10px 10px 10px;
-  position: relative;
+  /* position: relative; */
 }
-
+/* 
 .animeItem:hover {
   border: 2px solid #f0ec21;
-}
+} */
 
 .image {
   width: 100%;
-  height: 250px;
+  height: 240px;
   position: relative;
 }
 
 .image > img {
   border-radius: 5px;
 }
+
+.image:hover::after {
+  content: " ";
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  height: 240px;
+  background-color: #5b21b6;
+  z-index: 999;
+}
+
+
 
 .animeItem h1 {
   word-wrap: break-word;

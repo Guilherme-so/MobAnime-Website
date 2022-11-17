@@ -1,27 +1,14 @@
 import React, { FormEvent, useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { searchState, toogleSidebar } from "../../recoil-global/atom";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { List, MagnifyingGlass, X } from "phosphor-react";
 import { useRecoilState } from "recoil";
+import { QUERY_ALL_ANIMES } from "../../graphql/queries";
 
 import style from "./navbar.module.css";
-
-const QUERY_ALL_ANIMES = gql`
-  {
-    animes {
-      id
-      title
-      slug
-      thumbnail {
-        fileName
-        url
-      }
-    }
-  }
-`;
 
 export const Navbar = () => {
   const router = useRouter();
