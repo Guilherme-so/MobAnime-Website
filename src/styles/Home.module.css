@@ -27,34 +27,48 @@
   width: 100%;
   height: 100%;
   margin: 0 10px 10px 10px;
-  /* position: relative; */
+  position: relative;
 }
-/* 
-.animeItem:hover {
-  border: 2px solid #f0ec21;
-} */
 
-.image {
+.imageContainer {
   width: 100%;
   height: 240px;
   position: relative;
 }
 
-.image > img {
+.imageContainer:before {
+  content: "";
+  position: absolute;
+  background-color:#4A2FBD;
+  z-index: 1;
+  border-radius: 5px;
+  opacity: 0.85;
+  width: 0%;
+  height: 240px;
+  transition-property: width;
+  transition-duration: 0.2s;
+}
+
+.imageContainer:hover::before {
+  width: 100%;
+}
+
+.play{
+  position: absolute;
+  display: none;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.imageContainer > img {
   border-radius: 5px;
 }
 
-.image:hover::after {
-  content: " ";
-  display: inline-block;
-  position: absolute;
-  width: 100%;
-  height: 240px;
-  background-color: #5b21b6;
-  z-index: 999;
+.imageContainer:hover .play {
+  display: flex;
 }
-
-
 
 .animeItem h1 {
   word-wrap: break-word;

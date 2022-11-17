@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {useRouter} from "next/router"
+import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import { useRecoilState } from "recoil";
 import { searchFind } from "../recoil-global/atom";
@@ -12,7 +12,7 @@ import { QUERY_ALL_ANIMES } from "../graphql/queries";
 import style from "../styles/Home.module.css";
 
 export default function Home() {
-  const router = useRouter()
+  const router = useRouter();
 
   const { data, loading, error } = useQuery(QUERY_ALL_ANIMES);
   const [animes, setAnimes] = useState([]);
@@ -21,7 +21,6 @@ export default function Home() {
   useEffect(() => {
     setAnimes(data?.animes);
   }, [data]);
-
 
   if (loading) {
     return (
@@ -41,9 +40,9 @@ export default function Home() {
   }
 
   const redirectHandler = (url: string) => {
-    router.push(`/watch/${url}`)
-    setAnimeSerchFind(undefined)
-  }
+    router.push(`/watch/${url}`);
+    setAnimeSerchFind(undefined);
+  };
 
   return (
     <>
@@ -60,17 +59,26 @@ export default function Home() {
             {animeSerchFind.map((anime: any) => {
               return (
                 <div key={anime.id} className={style.animeItem}>
-                  {/* <Link href={`/watch/${anime.slug}`} key={anime.id}> */}
-                    <div className={style.image} key={anime.id} onClick={()=> redirectHandler(anime.slug)}>
-                      <Image
-                        src={anime.thumbnail.url}
-                        alt={anime.title}
-                        layout="fill"
-                        objectFit="cover"
-                      />
-                    </div>
-                    <h1>{anime.title}</h1>
-                  {/* </Link> */}
+                  <div
+                    className={style.imageContainer}
+                    key={anime.id}
+                    onClick={() => redirectHandler(anime.slug)}
+                  >
+                    <Image
+                      className={style.play}
+                      src="/images/icon-circled.png"
+                      alt="play"
+                      width={50}
+                      height={50}
+                    />
+                    <Image
+                      src={anime.thumbnail.url}
+                      alt={anime.title}
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  </div>
+                  <h1>{anime.title}</h1>
                 </div>
               );
             })}
@@ -84,7 +92,14 @@ export default function Home() {
               return (
                 <div key={anime.id} className={style.animeItem}>
                   <Link href={`/watch/${anime.slug}`} key={anime.id}>
-                    <div className={style.image}>
+                    <div className={style.imageContainer}>
+                      <Image
+                        className={style.play}
+                        src="/images/icon-circled.png"
+                        alt="play"
+                        width={50}
+                        height={50}
+                      />
                       <Image
                         src={anime.thumbnail.url}
                         alt={anime.title}
